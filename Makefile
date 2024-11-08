@@ -1,34 +1,55 @@
-NAME		:= Cub3D
-CFLAGS		:= -Wextra -Wall -Werror -std=c++98
-SRCS_PATH	:= ./src/
-.SILENT:
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/05 14:59:17 by tsantana          #+#    #+#              #
+#    Updated: 2024/11/07 13:43:13 by tsantana         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-HEADERS		:= -I ./include
+NAME	= Cub3D
 
-SRCS		:= $(addprefix $(SRCS_PATH), \
-				main.c \
-				)
+CFLAGS	= -Wextra -Wall -Werror -g3
 
-OBJS		:= $(SRCS:$(SRCS_PATH)%.cpp=obj/%.o)
+LIBMLX	= ./libs/MLX42/
 
-all: ${NAME}
+SRC_P	= ./src/
 
-${NAME}: ${OBJS}
-	@c++ ${CFLAGS} ${HEADERS} ${OBJS} -o ${NAME}
+HEADERS	= -I $(LIBMLX)/include -I ./include/
 
-obj/%.o: ${SRCS_PATH}%.cpp | obj_dirs
-	@c++ ${CFLAGS} -c ${HEADERS} $< -o $@
-	@printf "Compiling: ${notdir $<}\n"
+LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-obj_dirs:
-	@mkdir -p $(dir ${OBJS})
+SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c)
+
+OBJS	= $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
+
+BUILD	= obj/
+
+all: libmlx $(NAME)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+obj:
+	mkdir -p $(BUILD)
+
+obj/%.o: $(SRC_P)%.c
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+$(NAME): obj $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -rf obj
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-	@rm -f ${NAME}
+	@rm -rf $(NAME)
+	@rm -rf $(BUILD)
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re, libmlx

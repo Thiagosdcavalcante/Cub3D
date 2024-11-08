@@ -1,0 +1,123 @@
+
+#include <stdio.h>
+#include "../include/cub3d.h"
+
+t_map	*new_node(int ln, int clmn, char cntnt)
+{
+	t_map	*node;
+
+	node = malloc(sizeof(t_map));
+	node->column = clmn;
+	node->content = cntnt;
+	node->line = ln;
+	node->nxt = NULL;
+	node->prv = NULL;
+	return (node);
+}
+
+t_map	*parse_map(char *map, t_tile *tile)
+{
+	int		line = 0;
+	int		column = 0;
+	int		i = 0;
+	t_map	*list;
+	t_map	*head;
+
+	list = NULL;
+	tile->base = 0;
+	tile->height = 0;
+	tile->width = 0;
+	while (map[i] != '\0')
+	{
+		column = 0;
+		while (map[i] != '\0' && map[i] != '\n')
+		{
+			if (!list)
+			{
+				list = new_node(line, column, map[i]);
+				head = list;
+			}
+			else
+			{
+				list->nxt = new_node(line, column, map[i]);
+				list->nxt->prv = list;
+				list = list->nxt;
+			}
+			column++;
+			i++;
+		}
+		if (map[i])
+		{
+			line++;
+			if (line > tile->width)
+				tile->width = column;
+			i++;
+		}
+	}
+	tile->height = line + 1;
+	if ((MAX_MAP_H / tile->height) > (MAX_MAP_W / tile->width))
+		tile->base = (MAX_MAP_W / tile->width);
+	else
+		tile->base = (MAX_MAP_H / tile->height);
+	return (head);
+}
+
+int	is_player(char content)
+{
+	return (content == 'N' || content == 'S' || content == 'W' || content == 'E');
+}
+
+t_cam	*find_player(t_map *map)
+{
+	t_cam	*player;
+	t_map	*ref;
+
+	player = malloc(sizeof(t_cam));
+	ref = map;
+	while (ref)
+	{
+		if (is_player(ref->content))
+		{
+			player->player = ref;
+			player->e = ref->nxt;
+			player->w = ref->prv;
+			while (ref->column != player->player->column && ref->line != (player->player->line - 1))
+				ref = ref->prv;
+			player->n = ref;
+			ref = player->e;
+			while (ref && ref->column != player->player->column && ref->line != (player->player->line - 1))
+				ref = ref->nxt;
+			player->s = ref;
+			break ;
+		}
+		ref = ref->nxt;
+	}
+	return (player);
+}
+
+int	can_move(char direction)
+{
+	if (direction != '1')
+		return (0);
+	return (1);
+}
+
+int	main(void)
+{
+	char	*map = "111111\n100101\n101N01\n110001\n111111\0";
+	t_game	gnrl;
+
+	gnrl = (t_game){0};
+	gnrl.map = parse_map(map, &gnrl.tile);
+	gnrl.cam = find_player(gnrl.map);
+	printf("base: %d | height: %d | width: %d\n", gnrl.tile.base, gnrl.tile.height, gnrl.tile.width);
+	printf("%s\n", map);
+	printf("content: %c | column: %d | line: %d", gnrl.cam->player->content, gnrl.cam->player->column, gnrl.cam->player->line);
+	gnrl.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	init_minimap(&gnrl);
+	mlx_key_hook(gnrl.mlx_on, &control_hooks, &gnrl);
+	mlx_loop(gnrl.mlx_on);
+	mlx_terminate(gnrl.mlx_on);
+	free_all(&gnrl);
+	return (0);
+}

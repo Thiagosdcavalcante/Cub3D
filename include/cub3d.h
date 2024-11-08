@@ -3,25 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:04:33 by tsantana          #+#    #+#             */
-/*   Updated: 2024/10/28 21:32:33 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:07:49 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42/MLX42.h"
+# include "../libs/MLX42/include/MLX42/MLX42.h"
+# include <stdlib.h>
+# include <stdbool.h>
+# include <math.h>
 
 # define WIDTH 1920
-# define HEIGHT 1050
+# define HEIGHT 1080
+# define MAX_MAP_W 640
+# define MAX_MAP_H 360
+# define CYAN 0x00FFFF
 
 typedef struct s_tile
 {
 	int	base;
-	int	tile;
+	int	width;
+	int	height;
 }	t_tile;
 
 typedef struct s_image
@@ -58,7 +65,23 @@ typedef struct s_cam
 	t_map	*n;
 	t_map	*s;
 	t_map	*e;
+	t_map	*w;
 	t_map	*player;
 }	t_cam;
+
+typedef struct s_game
+{
+	mlx_image_t	*img;
+	mlx_image_t	*p_img;
+	t_tile		tile;
+	mlx_t		*mlx_on;
+	t_map		*map;
+	t_cam		*cam;
+}	t_game;
+
+void	render_elements(mlx_t *win, t_map *map, t_game *gm);
+void	control_hooks(mlx_key_data_t keydata, void *param);
+void	free_all(t_game *gm);
+void	init_minimap(t_game *gm);
 
 #endif
