@@ -62,36 +62,43 @@ t_map	*parse_map(char *map, t_tile *tile)
 	return (head);
 }
 
+static float	angler_def(char direction)
+{
+    if (direction == 'N')
+        return (-(3 * M_PI / 2));
+    else if (direction == 'S')
+        return (3 * M_PI / 2);
+    else if (direction == 'W')
+        return (M_PI);
+    else
+        return (0);
+}
+
 int	is_player(char content)
 {
 	return (content == 'N' || content == 'S' || content == 'W' || content == 'E');
 }
 
-t_cam	*find_player(t_map *map)
+t_cam	*find_player(t_game *gm)
 {
 	t_cam	*player;
 	t_map	*ref;
 
 	player = malloc(sizeof(t_cam));
-	ref = map;
+	ref = gm->map;
 	while (ref)
 	{
 		if (is_player(ref->content))
 		{
-			player->player = ref;
-			player->e = ref->nxt;
-			player->w = ref->prv;
-			while (ref->column != player->player->column && ref->line != (player->player->line - 1))
-				ref = ref->prv;
-			player->n = ref;
-			ref = player->e;
-			while (ref && ref->column != player->player->column && ref->line != (player->player->line - 1))
-				ref = ref->nxt;
-			player->s = ref;
+			player->angler = angler_def(ref->content);
+			player->plr_x = (ref->line * gm->tile.base) + (gm->tile.base / 4);
+			player->plr_y = (ref->column * gm->tile.base) + (gm->tile.base / 4);
 			break ;
 		}
 		ref = ref->nxt;
 	}
+	player->fov = (float)((FOV * M_PI) / 180);
+	ref->content = '0';
 	return (player);
 }
 
@@ -104,15 +111,15 @@ int	can_move(char direction)
 
 int	main(void)
 {
-	char	*map = "111111\n100101\n101N01\n110001\n111111\0";
+	char	*map = "111111\n100101\n101W01\n110001\n111111\0";
 	t_game	gnrl;
 
 	gnrl = (t_game){0};
 	gnrl.map = parse_map(map, &gnrl.tile);
-	gnrl.cam = find_player(gnrl.map);
+	gnrl.cam = find_player(&gnrl);
 	printf("base: %d | height: %d | width: %d\n", gnrl.tile.base, gnrl.tile.height, gnrl.tile.width);
 	printf("%s\n", map);
-	printf("content: %c | column: %d | line: %d", gnrl.cam->player->content, gnrl.cam->player->column, gnrl.cam->player->line);
+	printf("column: %d | line: %d", gnrl.cam->plr_y, gnrl.cam->plr_x);
 	gnrl.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	init_minimap(&gnrl);
 	mlx_key_hook(gnrl.mlx_on, &control_hooks, &gnrl);

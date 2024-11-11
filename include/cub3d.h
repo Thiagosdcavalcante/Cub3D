@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:04:33 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/08 17:07:49 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:04:51 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
+# define FOV 66
+# define ROT_SPEED 0.040
 # define MAX_MAP_W 640
 # define MAX_MAP_H 360
 # define CYAN 0x00FFFF
@@ -62,11 +64,11 @@ typedef struct s_map
 
 typedef struct s_cam
 {
-	t_map	*n;
-	t_map	*s;
-	t_map	*e;
-	t_map	*w;
-	t_map	*player;
+	int		plr_x;
+	int		plr_y;
+	int		rotation;
+	double	angler;
+	float	fov;
 }	t_cam;
 
 typedef struct s_game
