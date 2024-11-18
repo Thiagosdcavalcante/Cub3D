@@ -121,6 +121,7 @@ int	main(void)
 	printf("%s\n", map);
 	printf("column: %d | line: %d", gnrl.cam->plr_y, gnrl.cam->plr_x);
 	gnrl.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	init_background(&gnrl);
 	init_minimap(&gnrl);
 	mlx_key_hook(gnrl.mlx_on, &control_hooks, &gnrl);
 	mlx_loop(gnrl.mlx_on);

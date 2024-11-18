@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:04:33 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/11 17:04:51 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:38:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_game
 {
 	mlx_image_t	*img;
 	mlx_image_t	*p_img;
+	mlx_image_t	*bg_img;
 	t_tile		tile;
 	mlx_t		*mlx_on;
 	t_map		*map;
@@ -85,5 +86,6 @@ void	render_elements(mlx_t *win, t_map *map, t_game *gm);
 void	control_hooks(mlx_key_data_t keydata, void *param);
 void	free_all(t_game *gm);
 void	init_minimap(t_game *gm);
+void    init_background(t_game *gm);
 
 #endif

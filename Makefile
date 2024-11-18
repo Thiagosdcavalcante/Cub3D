@@ -6,7 +6,7 @@
 #    By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 14:59:17 by tsantana          #+#    #+#              #
-#    Updated: 2024/11/11 16:01:02 by tsantana         ###   ########.fr        #
+#    Updated: 2024/11/18 15:37:37 by tsantana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADERS	= -I $(LIBMLX)/include -I ./include/
 
 LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c)
+SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c render_background.c)
 
 OBJS	= $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
 
