@@ -6,11 +6,13 @@
 #    By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 14:59:17 by tsantana          #+#    #+#              #
-#    Updated: 2024/11/18 15:37:37 by tsantana         ###   ########.fr        #
+#    Updated: 2024/11/20 15:11:30 by tsantana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= Cub3D
+
+CC		= cc
 
 CFLAGS	= -Wextra -Wall -Werror -g3
 
@@ -22,7 +24,7 @@ HEADERS	= -I $(LIBMLX)/include -I ./include/
 
 LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c render_background.c)
+SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c render_background.c minimap_controls.c)
 
 OBJS	= $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
 

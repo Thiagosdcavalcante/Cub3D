@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:04:33 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/18 15:38:28 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:06:55 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define HEIGHT 1080
 # define FOV 66
 # define ROT_SPEED 0.040
-# define MAX_MAP_W 640
-# define MAX_MAP_H 360
+# define MAX_MAP_W 480
+# define MAX_MAP_H 270
 # define CYAN 0x00FFFF
 
 typedef struct s_tile
@@ -87,5 +87,6 @@ void	control_hooks(mlx_key_data_t keydata, void *param);
 void	free_all(t_game *gm);
 void	init_minimap(t_game *gm);
 void    init_background(t_game *gm);
+int		control_map_limits(t_game *gm, int x, int y);
 
 #endif

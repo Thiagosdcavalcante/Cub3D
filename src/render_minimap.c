@@ -6,30 +6,12 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 10:44:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/11 17:14:58 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:44:43 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdio.h>
-
-static void	draw_orientation(mlx_image_t *p_img, t_game *gm, int radius)
-{
-	double dx = cos(gm->cam->angler);
-    double dy = -sin(gm->cam->angler);
-	int px = radius;
-    int py = radius;
-    int i = 0;
-
-	while (i < radius)
-    {
-        if (px >= 0 && px < gm->tile.base && py >= 0 && py < gm->tile.base)
-            mlx_put_pixel(p_img, px, py, 0xFFFFFFFF);
-        px += dx;
-        py += dy;
-        i++;
-    }	
-}
 
 static void	draw_player(mlx_image_t *p_img, t_game *gm, int radius)
 {
@@ -48,7 +30,6 @@ static void	draw_player(mlx_image_t *p_img, t_game *gm, int radius)
 		}
 		x++;
 	}
-	draw_orientation(p_img, gm, radius);
 }
 
 static void	put_pixel_minimap(mlx_image_t *img, t_map *ref, int size)
@@ -58,12 +39,12 @@ static void	put_pixel_minimap(mlx_image_t *img, t_map *ref, int size)
 	int	size_x;
 	int	size_y;
 
-	size_x = (ref->line * size) + size;
-	size_y = (ref->column * size) + size;
-	j = ref->column * size;
+	size_x = (ref->column * size) + size;
+	size_y = (ref->line * size) + size;
+	j = ref->line * size;
 	while (j <= size_y)
 	{
-		i = ref->line * size;
+		i = ref->column * size;
 		while (i <= size_x)
 		{
 			if (ref->content == '1')
@@ -83,7 +64,7 @@ void	init_minimap(t_game *gm)
 	t_map	*map;
 
 	base = gm->tile.base;
-	gm->img = mlx_new_image(gm->mlx_on, gm->tile.height * base, gm->tile.width * base);
+	gm->img = mlx_new_image(gm->mlx_on, gm->tile.width * base, gm->tile.height * base);
 	if (base > 1)
 		gm->p_img = mlx_new_image(gm->mlx_on, base/2, base/2);
 	else
@@ -96,5 +77,7 @@ void	init_minimap(t_game *gm)
 	}
 	draw_player(gm->p_img, gm, base / 4);
 	mlx_image_to_window(gm->mlx_on, gm->img, 0, 0);
+	gm->img->instances->z = 2;
 	mlx_image_to_window(gm->mlx_on, gm->p_img, gm->cam->plr_x, gm->cam->plr_y);
+	gm->p_img->instances->z = 3;
 }

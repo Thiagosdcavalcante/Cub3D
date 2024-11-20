@@ -91,8 +91,8 @@ t_cam	*find_player(t_game *gm)
 		if (is_player(ref->content))
 		{
 			player->angler = angler_def(ref->content);
-			player->plr_x = (ref->line * gm->tile.base) + (gm->tile.base / 4);
-			player->plr_y = (ref->column * gm->tile.base) + (gm->tile.base / 4);
+			player->plr_y = (ref->line * gm->tile.base) + (gm->tile.base / 4);
+			player->plr_x = (ref->column * gm->tile.base) + (gm->tile.base / 4);
 			break ;
 		}
 		ref = ref->nxt;
@@ -111,7 +111,7 @@ int	can_move(char direction)
 
 int	main(void)
 {
-	char	*map = "111111\n100101\n101W01\n110001\n111111\0";
+	char	*map = "1111111111\n1111101111\n111000E001\n1111101111\n1111111111\0";
 	t_game	gnrl;
 
 	gnrl = (t_game){0};
