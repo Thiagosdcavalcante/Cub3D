@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:04:33 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/20 15:06:55 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:34:42 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # define MAX_MAP_W 480
 # define MAX_MAP_H 270
 # define CYAN 0x00FFFF
+
+typedef struct	s_ray
+{
+ double	ray_ngl;
+ double	distance;
+ int	flag;
+}				t_ray;
 
 typedef struct s_tile
 {
@@ -67,19 +74,22 @@ typedef struct s_cam
 	int		plr_x;
 	int		plr_y;
 	int		rotation;
-	double	angler;
-	float	fov;
+	int		l_r;
+	double	angle;
+	float	fov_plr;
 }	t_cam;
 
 typedef struct s_game
 {
 	mlx_image_t	*img;
+	mlx_image_t	*game;
 	mlx_image_t	*p_img;
 	mlx_image_t	*bg_img;
 	t_tile		tile;
 	mlx_t		*mlx_on;
 	t_map		*map;
 	t_cam		*cam;
+	t_ray		ray;
 }	t_game;
 
 void	render_elements(mlx_t *win, t_map *map, t_game *gm);
@@ -87,6 +97,8 @@ void	control_hooks(mlx_key_data_t keydata, void *param);
 void	free_all(t_game *gm);
 void	init_minimap(t_game *gm);
 void    init_background(t_game *gm);
+void	cast_rays(t_game *gm);
+float	get_v_inter(t_game *gm, float angl);
 int		control_map_limits(t_game *gm, int x, int y);
 
 #endif
