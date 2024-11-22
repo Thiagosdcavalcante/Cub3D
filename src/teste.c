@@ -85,6 +85,7 @@ t_cam	*find_player(t_game *gm)
 
 	player = malloc(sizeof(t_cam));
 	ref = gm->map;
+	player->rotation = 0;
 	player->l_r = 0;
 	while (ref)
 	{
@@ -109,22 +110,33 @@ int	can_move(char direction)
 	return (1);
 }
 
+void	game_loop(void *game)	// game loop
+{
+	t_game	*gm;
+
+	gm = (t_game *)game;
+	if (gm->game)	// cast to the mlx structure
+		mlx_delete_image(gm->mlx_on, gm->game);	// delete the image
+	gm->game = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);	// create new image
+	hook(gm, 0, 0); // hook the player
+	cast_rays(gm);	// cast the rays
+	mlx_image_to_window(gm->mlx_on, gm->game, 0, 0); // put the image to the window
+}
+
 int	main(void)
 {
-	char	*map = "1111111111\n1111101111\n111000E001\n1111101111\n1111111111\0";
+	char	*map = "1111111111\n1000000001\n100000E001\n1000000001\n1111111111\0";
 	t_game	gnrl;
 
 	gnrl = (t_game){0};
 	gnrl.ray = (t_ray){0};
 	gnrl.map = parse_map(map, &gnrl.tile);
 	gnrl.cam = find_player(&gnrl);
-	printf("base: %d | height: %d | width: %d\n", gnrl.tile.base, gnrl.tile.height, gnrl.tile.width);
-	printf("%s\n", map);
-	printf("column: %d | line: %d", gnrl.cam->plr_y, gnrl.cam->plr_x);
 	gnrl.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	init_background(&gnrl);
-	init_minimap(&gnrl);
-	mlx_key_hook(gnrl.mlx_on, &control_hooks, &gnrl);
+	mlx_loop_hook(gnrl.mlx_on, &game_loop, &gnrl);
+	// init_minimap(&gnrl);
+	mlx_key_hook(gnrl.mlx_on, &mlx_key, &gnrl);
 	mlx_loop(gnrl.mlx_on);
 	mlx_terminate(gnrl.mlx_on);
 	free_all(&gnrl);

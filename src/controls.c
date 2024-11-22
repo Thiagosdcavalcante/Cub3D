@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 10:26:50 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/20 15:06:33 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/22 16:39:34 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,32 @@
 // 	return (1);
 // }
 
-void	control_hooks(mlx_key_data_t keydata, void *param)
-{
-	t_game	*infor;
-	int		len_step = 5;
+// void	control_hooks(mlx_key_data_t keydata, void *param)
+// {
+// 	t_game	*infor;
+// 	int		len_step = 5;
 	
-	infor = (t_game *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(infor->mlx_on);
-	else if (keydata.key == MLX_KEY_W)
-	{
-		if (control_map_limits(infor, infor->p_img->instances->x, infor->p_img->instances->y - len_step) == 1)
-			infor->p_img->instances->y -= len_step;
-	}
-	else if (keydata.key == MLX_KEY_S)
-	{
-		if (control_map_limits(infor, infor->p_img->instances->x, infor->p_img->instances->y + len_step) == 1)
-			infor->p_img->instances->y += len_step;
-	}
-	else if (keydata.key == MLX_KEY_A)
-	{
-		if (control_map_limits(infor, infor->p_img->instances->x - len_step, infor->p_img->instances->y) == 1)
-			infor->p_img->instances->x -= len_step;
-	}
-	else if (keydata.key == MLX_KEY_D)
-	{
-		if (control_map_limits(infor, infor->p_img->instances->x + len_step, infor->p_img->instances->y) == 1)
-			infor->p_img->instances->x += len_step;
-	}
-}
+// 	infor = (t_game *)param;
+// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+// 		mlx_close_window(infor->mlx_on);
+// 	else if (keydata.key == MLX_KEY_W)
+// 	{
+// 		if (control_map_limits(infor, infor->p_img->instances->x, infor->p_img->instances->y - len_step) == 1)
+// 			infor->p_img->instances->y -= len_step;
+// 	}
+// 	else if (keydata.key == MLX_KEY_S)
+// 	{
+// 		if (control_map_limits(infor, infor->p_img->instances->x, infor->p_img->instances->y + len_step) == 1)
+// 			infor->p_img->instances->y += len_step;
+// 	}
+// 	else if (keydata.key == MLX_KEY_A)
+// 	{
+// 		if (control_map_limits(infor, infor->p_img->instances->x - len_step, infor->p_img->instances->y) == 1)
+// 			infor->p_img->instances->x -= len_step;
+// 	}
+// 	else if (keydata.key == MLX_KEY_D)
+// 	{
+// 		if (control_map_limits(infor, infor->p_img->instances->x + len_step, infor->p_img->instances->y) == 1)
+// 			infor->p_img->instances->x += len_step;
+// 	}
+// }

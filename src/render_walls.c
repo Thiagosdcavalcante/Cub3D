@@ -6,13 +6,13 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:54:04 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/20 20:54:43 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/11/22 16:22:57 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void my_mlx_pixel_put(t_game *gm, int x, int y, int color)
+void my_mlx_pixel_put(t_game *gm, int x, int y, int color)
 {
 	if (x < 0)
 		return ;
@@ -25,7 +25,7 @@ static void my_mlx_pixel_put(t_game *gm, int x, int y, int color)
 	mlx_put_pixel(gm->game, x, y, color);
 }
 
-static int  get_color(t_game *gm, int flag)
+int	get_color(t_game *gm, int flag)
 {
 	gm->ray.ray_ngl = nor_angle(gm->ray.ray_ngl);
 	if (flag == 0)
@@ -44,7 +44,7 @@ static int  get_color(t_game *gm, int flag)
 	}
 }
 
-static float    nor_angle(float angle)
+float	nor_angle(float angle)
 {
 	if (angle < 0)
 		angle += (2 * M_PI);
@@ -53,7 +53,7 @@ static float    nor_angle(float angle)
 	return (angle);
 }
 
-static void draw_wall(t_game *gm, int ray, int t_pix, int b_pix)
+void draw_wall(t_game *gm, int ray, int t_pix, int b_pix)
 {
 	int color;
 
@@ -62,7 +62,7 @@ static void draw_wall(t_game *gm, int ray, int t_pix, int b_pix)
 		my_mlx_pixel_put(gm, ray, t_pix++, color);
 }
 
-static void render_wall(t_game *gm, int ray)
+void render_wall(t_game *gm, int ray)
 {
 	double	wall_h;
 	double	b_pix;
