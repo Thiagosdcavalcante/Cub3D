@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/08 15:04:54 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:52:52 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	cast_rays(t_game *gm)
 			gm->ray.distance = h_inter;
 			gm->ray.flag = 1;
 		}
-		// render_wall(gm, ray);
+		render_wall(gm, ray);
 		ray++;
 		gm->ray.ray_ngl += ((double) gm->cam->fov_plr / WIDTH);
 	}

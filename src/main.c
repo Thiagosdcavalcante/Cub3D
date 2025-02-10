@@ -3,11 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 14:59:44 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/05 15:09:27 by tsantana         ###   ########.fr       */
+/*   Created: 2025/01/14 23:53:21 by leobarbo          #+#    #+#             */
+/*   Updated: 2025/02/08 14:58:08 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cube.h"
+#include "../include/cub3d.h"
+
+int	main(int argc, char **argv)
+{
+	t_game	data;
+
+	if(argc != 2)
+		return (err_msg("Invalid number of arguments!", 1));
+	init_data(&data);
+	if (parsing(&data, argv) == ERROR)
+		clean_exit(&data, 1);
+	data.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	init_background(&data);
+	mlx_loop_hook(data.mlx_on, &game_loop2, &data);
+	mlx_key_hook(data.mlx_on, &mlx_key, &data);
+	printf("width: %d, height: %d\n", data.mapinfo.width, data.mapinfo.height);
+	mlx_loop(data.mlx_on);
+	mlx_terminate(data.mlx_on);
+	return (clean_exit(&data, 0), 0);
+}

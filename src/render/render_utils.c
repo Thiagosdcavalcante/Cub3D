@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:22:25 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/08 15:06:16 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:44:15 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ float	pytheorem(float a, float b)
 	return (sqrt((a * a) + (b * b)));
 }
 
-// int	h_unit_circle(float angle)
-// {
-// 	return (angle > 0 && angle < M_PI);
-// }
+int	h_unit_circle(float angle)
+{
+	return (angle > 0 && angle < M_PI);
+}
 
-// int	v_unit_circle(float angle)
-// {
-// 	return (angle > M_PI * 0.5 && angle < M_PI * 1.5);
-// }
+int	v_unit_circle(float angle)
+{
+	return (angle > M_PI * 0.5 && angle < M_PI * 1.5);
+}
 
-// uint32_t	reverse_bytes(unsigned int c)
-// {
-// 	return ((c & R) >> 8 | (c & G) << 8 | (c & B) << 24 | (c & A) >> 24);
-// }
+uint32_t	reverse_bytes(unsigned int c)
+{
+	return ((c & R) >> 8 | (c & G) << 8 | (c & B) << 24 | (c & A) >> 24);
+}
 
 // mlx_texture_t	*get_texture(t_game *gm)
 // {

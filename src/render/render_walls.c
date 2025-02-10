@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/08 16:01:16 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:43:38 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 // 	else
 // 	{
 // 		if (gm->ray.ray_ngl > 0 && gm->ray.ray_ngl < M_PI)
-// 			return (0xF5F5F5FF);
+// 			return (0xF5F5F5FF);void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 // 		else
 // 			return (0xF5F5F5FF);
 // 	}
@@ -157,3 +157,74 @@
 // 		gm->ray.ray_ngl += ((double) gm->cam->fov_plr / gm->img->width);
 // 	}
 // }
+
+mlx_texture_t    *get_texture(t_game *gm)
+{
+	gm->ray.ray_ngl = nor_angle(gm->ray.ray_ngl);
+	if (gm->ray.info->y)
+	{
+		if (v_unit_circle(gm->ray.ray_ngl))
+			return (gm->texinfo.tex.west);
+		return (gm->texinfo.tex.east);
+	}
+	if (h_unit_circle(gm->ray.ray_ngl))
+		return (gm->texinfo.tex.south);
+	return (gm->texinfo.tex.north);
+}
+
+static double	get_x_o(mlx_texture_t *texture, t_game *gm)
+{
+	double	x;
+	double	width;
+
+	width = (double) texture->width;
+	if (gm->ray.info->x)
+		x = fmodf((gm->ray.info->x * (width / gm->tile.base)), width);
+	else
+		x = fmodf((gm->ray.info->y * (width / gm->tile.base)), width);
+	if (texture == gm->texinfo.tex.south || texture == gm->texinfo.tex.west)
+		return (width - x);
+	return (x);
+}
+
+void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
+{
+	double			x;
+	double			y;
+	mlx_texture_t	*texture;
+	uint32_t		*arr;
+	double			factor;
+
+	texture = get_texture(gm);
+	arr = (uint32_t *)texture->pixels;
+	factor = (double)texture->height / wall_h;
+	x = get_x_o(texture, gm);
+	y = (t_pix - ((double) gm->img->height / 2) + (wall_h / 2)) * factor;
+	if (y < 0)
+		y = 0;
+	while (t_pix < b_pix)
+	{
+		put_pixel(gm->img, gm->ray.info->index, t_pix++,
+			reverse_bytes(arr[(int) y * texture->width + (int) x]));
+		y += factor;
+	}
+}
+
+void	render_wall(t_game *gm, int ray)
+{
+	float	wall_h;
+	float	b_pix;
+	float	t_pix;
+
+	gm->ray.distance *= cos(nor_angle(gm->ray.ray_ngl - gm->cam->angle));
+	wall_h = (gm->tile.base / gm->ray.distance) * (((float) gm->img->width / 2)
+			/ tan(gm->cam->fov_plr / 2));
+	b_pix = ((double) gm->img->height / 2) + (wall_h / 2);
+	t_pix = ((double) gm->img->height / 2) - (wall_h / 2);
+	if (b_pix > gm->img->height)
+		b_pix = gm->img->height;
+	if (t_pix < 0)
+		t_pix = 0;
+	gm->ray.info->index = ray;
+	draw_wall2(gm, t_pix, b_pix, wall_h);
+}

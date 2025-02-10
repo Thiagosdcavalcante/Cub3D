@@ -3,55 +3,63 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+         #
+#    By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/05 14:59:17 by tsantana          #+#    #+#              #
-#    Updated: 2024/11/22 17:39:58 by tsantana         ###   ########.fr        #
+#    Created: 2024/10/29 00:11:18 by leobarbo          #+#    #+#              #
+#    Updated: 2025/01/14 23:34:21 by leobarbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= Cub3D
+NAME        := cub3d
+CC          := gcc
+CFLAGS      := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fPIC
+LIBFT       := ./lib/libft
+LIBMLX42_PATH := ./lib/MLX42
+LIBMLX_REPO := https://github.com/codam-coding-college/MLX42.git
+SRCS_PATH   := ./src/
+OBJ_PATH    := ./obj
+.SILENT:
 
-CC		= cc
+GREEN = \033[32m
+YELLOW = \033[33m
+RESET = \033[0m
 
-CFLAGS	= -Wextra -Wall -Werror -g3
+HEADERS     := -I ./include -I $(LIBMLX42_PATH)/include -I $(LIBFT)/include
+LIBS        := ${LIBFT}/libft.a $(LIBMLX42_PATH)/build/libmlx42.a -lglfw -ldl -lXext -lX11 -lm
+SRCS        := $(shell find $(SRCS_PATH) -type f -name "*.c")
+OBJS        := $(patsubst $(SRCS_PATH)%.c,$(OBJ_PATH)/%.o,$(SRCS))
 
-LIBMLX	= ./libs/MLX42/
+all: $(OBJ_PATH) libmlx42 libft $(NAME)
 
-SRC_P	= ./src/
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
 
-HEADERS	= -I $(LIBMLX)/include -I ./include/
+$(OBJ_PATH)/%.o: $(SRCS_PATH)%.c | $(OBJ_PATH)
+	@mkdir -p $(@D)
+	$(CC) $(HEADERS) $(CFLAGS) -o $@ -c $<
 
-LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+libft:
+	@$(MAKE) -C $(LIBFT)
 
-SRCS	= $(addprefix $(SRC_P), teste.c render_minimap.c controls.c free.c render_background.c minimap_controls.c movements.c render_walls.c ray.c)
+$(LIBMLX42_PATH):
+	@git clone $(LIBMLX_REPO) $(LIBMLX42_PATH)
 
-OBJS	= $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
+libmlx42: $(LIBMLX42_PATH)
+	cmake -S $(LIBMLX42_PATH) -B $(LIBMLX42_PATH)/build
+	make -C $(LIBMLX42_PATH)/build -j4
 
-BUILD	= obj/
-
-all: libmlx $(NAME)
-
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-
-obj:
-	mkdir -p $(BUILD)
-
-obj/%.o: $(SRC_P)%.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
-
-$(NAME): obj $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJS)
+	printf "$(YELLOW)Compiling...$(RESET)\n"
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	printf "$(GREEN)Done!$(RESET)\n"
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJ_PATH)
+	rm -rf $(LIBMLX42_PATH)/build
 
 fclean: clean
-	@rm -rf $(NAME)
-	@rm -rf $(BUILD)
+	rm -rf $(NAME)
 
-re: clean all
+re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all clean fclean re libmlx42 libft
