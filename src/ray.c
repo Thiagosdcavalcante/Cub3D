@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:39:14 by tsantana          #+#    #+#             */
-/*   Updated: 2024/11/22 17:41:10 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:38:11 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ float	get_v_inter(t_game *gm, float angl)	// get the vertical intersection
 
 	x_step = gm->tile.base; 
 	y_step = gm->tile.base * tan(angl);
-	v_x = floor(gm->cam->plr_x / gm->tile.base) * gm->tile.base;
+	v_x = floorf(gm->cam->plr_x / gm->tile.base) * gm->tile.base;
 	pixel = inter_check(angl, &v_x, &x_step, gm); // check the intersection and get the pixel value
 	v_y = gm->cam->plr_y + (v_x - gm->cam->plr_x) * tan(angl);
 	if ((unit_circle(angl, 'x') && y_step < 0) || (!unit_circle(angl, 'x') && y_step > 0)) // check y_step value
