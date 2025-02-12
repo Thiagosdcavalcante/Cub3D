@@ -2,3 +2,4 @@
 obj/
 Cub3D
 *.o
+lib/MLX42
