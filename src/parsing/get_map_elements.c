@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_elements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 22:52:25 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/01/28 14:40:05 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:41:08 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static int parse_map_info(t_game *data, char **map, int i, int j)
     {
         if (map[i][j] == 'F' || map[i][j] == 'C')
         {
-            if (set_floor_and_ceiling_colors(&data->texinfo, map[i], j) == 2)
+            if (set_floor_and_ceiling_colors(data->texinfo, map[i], j) == 2)
                 return (ERROR);
             return (3);
         }
         if (map[i][j + 1] && ft_isprint(map[i][j + 1]))
         {
-            if (assign_direction_textures(&data->texinfo, map[i], j) == 2)
+            if (assign_direction_textures(data->texinfo, map[i], j) == 2)
                 return (err_msg(Y "Invalid texture(s)" RST, ERROR));
             return (3);
         }
