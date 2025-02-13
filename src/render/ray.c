@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/10 17:52:52 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:55:20 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,12 @@ int	wall_hit(float x, float y, t_game *gm)	// check the wall hit
 	if (x < 0 || y < 0)
 		return (0);
 	map = gm->map_position;
-	x_m = floor (x / gm->tile.base); // get the x position in the map
-	y_m = floor (y / gm->tile.base); // get the y position in the map
-	if (y_m >= gm->tile.height || x_m >= gm->tile.width )
+	x_m = floorf (x / gm->tile.base); // get the x position in the map
+	y_m = floorf (y / gm->tile.base); // get the y position in the map
+	if (y_m > gm->tile.height || x_m > gm->tile.width )
 		return (0);
-	printf("%d | %d | %c\n", map->line, y_m, map->down->content);
 	while (map && map->down && map->line != y_m)
 		map = map->down;
-	printf("%d | %d | %c\n", map->line, y_m, map->down->content);
 	while (map && map->nxt && map->column != x_m)
 		map = map->nxt;
 	if (map->content == '1')
@@ -124,6 +122,7 @@ void	cast_rays(t_game *gm)
 {
 	double	h_inter;
 	double	v_inter;
+	printf("%d | %d | %c\n", map->line, y_m, map->down->content);
 	int		ray;
 
 	ray = 0;
