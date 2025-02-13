@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 23:50:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/08 15:04:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:41:40 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	parsing(t_game *data, char **argv)
 		return (ERROR);
 	if (DEBUG == 1)
 		printf(RED "\n+++++++++   List  filled   +++++++++\n" RST); // Retirar
-	if (parse_textures(&data->texinfo) != 0)
+	if (parse_textures(data->texinfo) != 0)
 		return (ERROR);
 	if (DEBUG == 1)
 		printf(RED "\n++++++    Textures  parsed    ++++++\n" RST); // Retirar
