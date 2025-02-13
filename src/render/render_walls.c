@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/13 14:11:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:26:51 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,15 +202,14 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 	y = (t_pix - ((double) HEIGHT / 2) + (wall_h / 2)) * factor;
 	if (y < 0)
 		y = 0;
-	gm->p_img = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
-	gm->bg_img->instances->z = 1;
+	gm->wall_img = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
 	while (t_pix < b_pix)
 	{
-		put_pixel(gm->p_img, gm->ray.info->index, t_pix++,
+		put_pixel(gm->wall_img, gm->ray.info->index, t_pix++,
 			reverse_bytes(arr[(int) y * texture->width + (int) x]));
 		y += factor;
 	}
-	mlx_image_to_window(gm->mlx_on, gm->p_img, 0, 0);
+	mlx_image_to_window(gm->mlx_on, gm->wall_img, 0, 0);
 	gm->bg_img->instances[1].z = true;
 }
 
@@ -230,7 +229,7 @@ void	render_wall(t_game *gm, int ray)
 	if (t_pix < 0)
 		t_pix = 0;
 	gm->ray.info->index = ray;
-	if (gm->p_img)
-		mlx_delete_image(gm->mlx_on, gm->p_img);
+	if (gm->wall_img)
+		mlx_delete_image(gm->mlx_on, gm->wall_img);
 	draw_wall2(gm, t_pix, b_pix, wall_h);
 }
