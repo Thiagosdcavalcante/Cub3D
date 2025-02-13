@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_background.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:54:04 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/10 17:46:51 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:43:45 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void    init_background(t_game *gm)
         while (i < WIDTH)
         {
             if (j < max_h)
-                mlx_put_pixel(gm->bg_img, i, j, reverse_bytes(gm->texinfo.hex_ceiling));
+                mlx_put_pixel(gm->bg_img, i, j, reverse_bytes(gm->texinfo->hex_ceiling));
             else
-                mlx_put_pixel(gm->bg_img, i, j, reverse_bytes(gm->texinfo.hex_floor));
+                mlx_put_pixel(gm->bg_img, i, j, reverse_bytes(gm->texinfo->hex_floor));
             i++;
         }
         j++;
