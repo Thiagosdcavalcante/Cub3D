@@ -122,7 +122,7 @@ typedef struct s_texinfo
 	double			pos;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-	t_texture		tex;
+	t_texture		*tex;
 }	t_texinfo;
 
 typedef struct s_mapinfo
@@ -157,7 +157,7 @@ typedef struct s_game
 	char		**parse_map;
 	char		**map;
 	t_player	player;
-	t_texinfo	texinfo;
+	t_texinfo	*texinfo;
     t_mapinfo	mapinfo;
 	mlx_image_t	*img;
 	mlx_image_t	*game;
