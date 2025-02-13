@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/10 17:43:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:28:10 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,12 @@ mlx_texture_t    *get_texture(t_game *gm)
 	if (gm->ray.info->y)
 	{
 		if (v_unit_circle(gm->ray.ray_ngl))
-			return (gm->texinfo.tex.west);
-		return (gm->texinfo.tex.east);
+			return (gm->texinfo->tex->west);
+		return (gm->texinfo->tex->east);
 	}
 	if (h_unit_circle(gm->ray.ray_ngl))
-		return (gm->texinfo.tex.south);
-	return (gm->texinfo.tex.north);
+		return (gm->texinfo->tex->south);
+	return (gm->texinfo->tex->north);
 }
 
 static double	get_x_o(mlx_texture_t *texture, t_game *gm)
@@ -182,7 +182,7 @@ static double	get_x_o(mlx_texture_t *texture, t_game *gm)
 		x = fmodf((gm->ray.info->x * (width / gm->tile.base)), width);
 	else
 		x = fmodf((gm->ray.info->y * (width / gm->tile.base)), width);
-	if (texture == gm->texinfo.tex.south || texture == gm->texinfo.tex.west)
+	if (texture == gm->texinfo->tex->south || texture == gm->texinfo->tex->west)
 		return (width - x);
 	return (x);
 }
