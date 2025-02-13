@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:01:44 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/13 12:17:23 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:04:07 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,22 @@ void init_cam(t_cam *cam)
     cam->fov_plr = 0.0f;
 }
 
-void init_texinfo(t_texinfo *texinfo)
+void init_texinfo(t_texinfo **texinfo)
 {
-    texinfo = malloc(sizeof (t_texinfo));
-    texinfo->north = NULL;
-    texinfo->south = NULL;
-    texinfo->west = NULL;
-    texinfo->east = NULL;
-    texinfo->floor = NULL;
-    texinfo->ceiling = NULL;
-    texinfo->size = 0;
-    texinfo->index = 0;
-    texinfo->step = 0.0;
-    texinfo->pos = 0.0;
-    texinfo->x = 0;
-    texinfo->y = 0;
-    texinfo->tex = (t_texture *){0};
+    (*texinfo) = malloc(sizeof (t_texinfo));
+    (*texinfo)->north = NULL;
+    (*texinfo)->south = NULL;
+    (*texinfo)->west = NULL;
+    (*texinfo)->east = NULL;
+    (*texinfo)->floor = NULL;
+    (*texinfo)->ceiling = NULL;
+    (*texinfo)->size = 0;
+    (*texinfo)->index = 0;
+    (*texinfo)->step = 0.0;
+    (*texinfo)->pos = 0.0;
+    (*texinfo)->x = 0;
+    (*texinfo)->y = 0;
+    (*texinfo)->tex = (t_texture *){0};
 }
 
 void init_mapinfo(t_mapinfo *mapinfo)
@@ -124,7 +124,7 @@ void init_data(t_game *data)
     data->parse_map = NULL;
     data->map = NULL;
     init_player(&data->player);
-    init_texinfo(data->texinfo);
+    init_texinfo(&data->texinfo);
     init_mapinfo(&data->mapinfo);
     data->img = NULL;  
     data->game = NULL;  
@@ -139,7 +139,6 @@ void init_data(t_game *data)
         exit(EXIT_FAILURE);
     }
     init_cam(data->cam);
-    start_cam_infor(data);
     init_ray(&data->ray);
     init_obj(&data->obj);
 }
