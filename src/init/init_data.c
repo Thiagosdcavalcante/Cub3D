@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:01:44 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/13 13:04:07 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:23:22 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void init_data(t_game *data)
     init_mapinfo(&data->mapinfo);
     data->img = NULL;  
     data->game = NULL;  
-    data->p_img = NULL; 
+    data->wall_img = NULL; 
     data->bg_img = NULL; 
     init_tile(&data->tile);
     data->mlx_on = NULL; 
