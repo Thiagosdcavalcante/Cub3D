@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/13 13:51:13 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:11:26 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 	if (y < 0)
 		y = 0;
 	gm->p_img = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
+	gm->bg_img->instances->z = 1;
 	while (t_pix < b_pix)
 	{
 		put_pixel(gm->p_img, gm->ray.info->index, t_pix++,
@@ -210,6 +211,7 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 		y += factor;
 	}
 	mlx_image_to_window(gm->mlx_on, gm->p_img, 0, 0);
+	gm->bg_img->instances[1].z = true;
 }
 
 void	render_wall(t_game *gm, int ray)
