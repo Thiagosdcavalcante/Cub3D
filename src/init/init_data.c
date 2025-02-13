@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:01:44 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/12 23:30:28 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:17:23 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void init_data(t_game *data)
         exit(EXIT_FAILURE);
     }
     init_cam(data->cam);
+    start_cam_infor(data);
     init_ray(&data->ray);
     init_obj(&data->obj);
 }
