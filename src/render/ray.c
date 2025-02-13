@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/13 13:55:20 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:01:32 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void	cast_rays(t_game *gm)
 {
 	double	h_inter;
 	double	v_inter;
-	printf("%d | %d | %c\n", map->line, y_m, map->down->content);
 	int		ray;
 
 	ray = 0;
