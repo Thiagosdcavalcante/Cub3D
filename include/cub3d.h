@@ -227,6 +227,7 @@ t_texture  		*create_texture(t_game *gm);
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 void			draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h);
 uint32_t		reverse_bytes(unsigned int c);
+void			start_cam_infor(t_game *game);
 
 void			print_game_info(t_game game);
 
