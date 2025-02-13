@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_texture.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 14:21:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/10 14:53:33 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:37:41 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ t_texture   *create_texture(t_game *gm)
     t_texture   *texture;
     
     texture = malloc(sizeof(t_texture));
-    texture->north = construct_texture(gm->texinfo.north);
-    texture->south = construct_texture(gm->texinfo.south);
-    texture->west = construct_texture(gm->texinfo.west);
-    texture->east = construct_texture(gm->texinfo.east);
+    texture->north = construct_texture(gm->texinfo->north);
+    texture->south = construct_texture(gm->texinfo->south);
+    texture->west = construct_texture(gm->texinfo->west);
+    texture->east = construct_texture(gm->texinfo->east);
 	if (!texture->north || !texture->south || !texture->west || !texture->east)
 		return (NULL);
     return (texture);
