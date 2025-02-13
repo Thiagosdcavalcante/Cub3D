@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 23:53:21 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/08 14:58:08 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:18:23 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	if (parsing(&data, argv) == ERROR)
 		clean_exit(&data, 1);
+	data.texinfo->tex = create_texture(&data);
 	data.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	init_background(&data);
 	mlx_loop_hook(data.mlx_on, &game_loop2, &data);
