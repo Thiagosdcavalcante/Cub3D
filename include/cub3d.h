@@ -165,7 +165,7 @@ typedef struct s_game
     t_mapinfo	mapinfo;
 	mlx_image_t	*img;
 	mlx_image_t	*game;
-	mlx_image_t	*p_img;
+	mlx_image_t	*wall_img;
 	mlx_image_t	*bg_img;
 	t_tile		tile;
 	mlx_t		*mlx_on;
