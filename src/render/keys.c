@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:11 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/08 14:09:35 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:09:38 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static int	control_map_limits(t_game *gm, int x, int y)
 	new_y = (y + (gm->tile.base/2)) / gm->tile.base;
 	x /= gm->tile.base;
 	y /= gm->tile.base;
-	if (limits_checker(gm->map_position, x, y) == 0)
+	if (limits_checker(map, x, y) == 0)
 		return (0);
-    if (limits_checker(gm->map_position, new_x, y) == 0)
+    if (limits_checker(map, new_x, y) == 0)
         return (0);
-    if (limits_checker(gm->map_position, x, new_y) == 0)
+    if (limits_checker(map, x, new_y) == 0)
         return (0);
-    if (limits_checker(gm->map_position, new_x, new_y) == 0)
+    if (limits_checker(map, new_x, new_y) == 0)
         return (0);
     return (1);
 }
