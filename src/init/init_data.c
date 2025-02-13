@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:01:44 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/08 14:54:37 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:30:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@
 #include <string.h>
 #include "cub3d.h" // Substitua pelo caminho correto do seu cabeçalho
 
+void init_render_img(t_r_img *render_img)
+{
+    render_img->x = 0;
+    render_img->y = 0;
+    render_img->index = 0;
+}
+
 void init_ray(t_ray *ray)
 {
     ray->ray_ngl = 0.0;
     ray->distance = 0.0;
     ray->flag = 0;
+    ray->info = malloc(sizeof(t_r_img));
+    init_render_img(ray->info);
 }
 
 void init_tile(t_tile *tile)
@@ -34,12 +43,6 @@ void init_img(t_img *img)
 {
     img->texture = NULL;
     img->img = NULL;
-}
-
-void init_render_img(t_r_img *render_img)
-{
-    render_img->x = 0;
-    render_img->y = 0;
 }
 
 void init_obj(t_obj *obj)
@@ -72,6 +75,7 @@ void init_cam(t_cam *cam)
 
 void init_texinfo(t_texinfo *texinfo)
 {
+    texinfo = malloc(sizeof (t_texinfo));
     texinfo->north = NULL;
     texinfo->south = NULL;
     texinfo->west = NULL;
@@ -84,7 +88,7 @@ void init_texinfo(t_texinfo *texinfo)
     texinfo->pos = 0.0;
     texinfo->x = 0;
     texinfo->y = 0;
-    texinfo->tex = (t_texture){0};
+    texinfo->tex = (t_texture *){0};
 }
 
 void init_mapinfo(t_mapinfo *mapinfo)
@@ -120,7 +124,7 @@ void init_data(t_game *data)
     data->parse_map = NULL;
     data->map = NULL;
     init_player(&data->player);
-    init_texinfo(&data->texinfo);
+    init_texinfo(data->texinfo);
     init_mapinfo(&data->mapinfo);
     data->img = NULL;  
     data->game = NULL;  
