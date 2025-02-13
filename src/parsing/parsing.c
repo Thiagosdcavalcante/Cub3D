@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 23:50:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/12 23:41:40 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:04:25 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	parsing(t_game *data, char **argv)
 	if (DEBUGHARD == 1)
 		print_game_info(*data); // Retirar
 	calc_lines_and_columns(data->map_position, &data->tile);
+	start_cam_infor(data);
 	printf("%d --- %d --- %d\n", data->tile.height, data->tile.width, data->tile.base);
 	return (SUCCESS);
 }
