@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:54:04 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/12 23:43:45 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:10:48 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void    init_background(t_game *gm)
         j++;
     }
     mlx_image_to_window(gm->mlx_on, gm->bg_img, 0, 0);
+    gm->bg_img->instances[0].z = true;
 }
