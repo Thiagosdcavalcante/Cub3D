@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:01:44 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/13 14:23:22 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:10:49 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void init_cam(t_cam *cam)
     cam->rotation = 0;
     cam->l_r = 0;
     cam->angle = 0.0;
-    cam->fov_plr = 0.0f;
+    cam->fov_plr = 0.0;
+    
 }
 
 void init_texinfo(t_texinfo **texinfo)
