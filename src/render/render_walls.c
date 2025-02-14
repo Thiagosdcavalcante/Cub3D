@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/13 14:26:51 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:03:41 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 
 	texture = get_texture(gm);
 	arr = (uint32_t *)texture->pixels;
-	factor = (double)texture->height / wall_h;
+	factor = (double) (texture->height / wall_h);
 	x = get_x_o(texture, gm);
 	y = (t_pix - ((double) HEIGHT / 2) + (wall_h / 2)) * factor;
 	if (y < 0)
@@ -220,10 +220,11 @@ void	render_wall(t_game *gm, int ray)
 	float	t_pix;
 
 	gm->ray.distance *= cos(nor_angle(gm->ray.ray_ngl - gm->cam->angle));
-	wall_h = (float) (gm->tile.base / gm->ray.distance) * (((float) WIDTH / 2)
+	wall_h = (gm->tile.base / gm->ray.distance) * (((float) WIDTH / 2)
 			/ tan(gm->cam->fov_plr / 2));
 	b_pix = ((double) HEIGHT / 2) + (wall_h / 2);
 	t_pix = ((double) HEIGHT / 2) - (wall_h / 2);
+	//printf("-> %f | %f ||| -> wall_h: %f | distance: %f\n", b_pix, t_pix, wall_h, gm->ray.distance);
 	if (b_pix > HEIGHT)
 		b_pix = HEIGHT;
 	if (t_pix < 0)
