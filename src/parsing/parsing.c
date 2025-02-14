@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 23:50:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/13 13:04:25 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:18:05 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static void	calc_lines_and_columns(t_map *map_position, t_tile *tile)
 	}
 	tile->height = line + 1;
 	tile->width = column + 1;
-	if (MAX_MAP_H / tile->height >= MAX_MAP_W / tile->width)
-		tile->base = MAX_MAP_W / tile->width;
+	if (HEIGHT / tile->height >= WIDTH / tile->width)
+		tile->base = WIDTH / tile->width;
 	else
-		tile->base = MAX_MAP_H / tile->height;
+		tile->base = HEIGHT / tile->height;
 }
 
 int	parsing(t_game *data, char **argv)
