@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 23:53:21 by leobarbo          #+#    #+#             */
-/*   Updated: 2025/02/13 13:01:49 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:12:35 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	data.texinfo->tex = create_texture(&data);
 	data.mlx_on = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	init_background(&data);
+	data.wall_img = mlx_new_image(data.mlx_on, WIDTH, HEIGHT);
 	mlx_loop_hook(data.mlx_on, &game_loop2, &data);
 	mlx_key_hook(data.mlx_on, &mlx_key, &data);
 	printf("width: %d, height: %d\n", data.mapinfo.width, data.mapinfo.height);
