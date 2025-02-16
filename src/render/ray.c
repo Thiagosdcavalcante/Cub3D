@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/14 11:12:10 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:16:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	cast_rays(t_game *gm)
 	ray = 0;
 	gm->ray.ray_ngl = gm->cam->angle - ((gm->cam->fov_plr + gm->tile.base) / 2);
 	printf("cast_rays -> %f | %f | %f\n", gm->ray.ray_ngl, gm->cam->angle, gm->cam->fov_plr);
-	while (ray <= WIDTH)
+	while (ray < WIDTH)
 	{
 		gm->ray.flag = 0;
 		h_inter = get_h_inter(gm, nor_angle(gm->ray.ray_ngl));
