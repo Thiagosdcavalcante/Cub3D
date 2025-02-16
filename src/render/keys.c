@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:11 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/12 23:09:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:34:25 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int  limits_checker(t_map *origin, int x, int y)
 	map = origin;
 	while (map)
 	{
-		if (map->line == y)
+		if (map->column == y)
 			break ;
 		map = map->nxt;
 	}
@@ -104,22 +104,22 @@ void    mlx_key(mlx_key_data_t keydata, void *ml)
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
 	{
 		if (control_map_limits(gm, gm->cam->plr_x - 5, gm->cam->plr_y) == 0)
-			gm->cam->l_r = -5;
+			gm->cam->l_r -= 5;
 	}
 	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS)) // move right
 	{
 		if (control_map_limits(gm, gm->cam->plr_x - 5, gm->cam->plr_y) == 0)
-			gm->cam->l_r = 5;
+			gm->cam->l_r += 5;
 	}
 	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS)) // move down
 	{
-		if (control_map_limits(gm, gm->cam->plr_x - 5, gm->cam->plr_y) == 0)
-			gm->cam->l_r = -5;
+		if (control_map_limits(gm, gm->cam->plr_x + 5, gm->cam->plr_y) == 0)
+			gm->cam->l_r += 5;
 	}
 	else if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS)) // move down
 	{
 		if (control_map_limits(gm, gm->cam->plr_x - 5, gm->cam->plr_y) == 0)
-			gm->cam->l_r = -5;
+			gm->cam->plr_x -= 5;
 	}
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS) // rotate left
 		gm->cam->rotation = -1;
