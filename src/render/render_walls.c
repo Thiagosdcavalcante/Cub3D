@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/16 16:23:24 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:19:19 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,9 @@ static double	get_x_o(mlx_texture_t *texture, t_game *gm)
 
 	width = (double) texture->width;
 	if (gm->ray.info->x)
-		x = fmodf((gm->ray.info->x * (width / gm->tile.base)), width);
-	else
 		x = fmodf((gm->ray.info->y * (width / gm->tile.base)), width);
+	else
+		x = fmodf((gm->ray.info->x * (width / gm->tile.base)), width);
 	if (texture == gm->texinfo->tex->south || texture == gm->texinfo->tex->west)
 		return (width - x);
 	return (x);
@@ -202,11 +202,10 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 	y = (t_pix - ((double) HEIGHT / 2) + (wall_h / 2)) * factor;
 	if (y < 0)
 		y = 0;
-	gm->wall_img = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
 	while (t_pix < b_pix)
 	{
 		put_pixel(gm->wall_img, gm->ray.info->index, t_pix++,
-			reverse_bytes(arr[(int) y * texture->width + (int) x]));
+			reverse_bytes(arr[(uint32_t)y * texture->width + (uint32_t)x]));
 		y += factor;
 	}
 	mlx_image_to_window(gm->mlx_on, gm->wall_img, 0, 0);
@@ -223,13 +222,10 @@ void	render_wall(t_game *gm, int ray)
 			/ tan(gm->cam->fov_plr / 2));
 	b_pix = ((double) HEIGHT / 2) + (wall_h / 2);
 	t_pix = ((double) HEIGHT / 2) - (wall_h / 2);
-	//printf("-> %f | %f ||| -> wall_h: %f | distance: %f\n", b_pix, t_pix, wall_h, gm->ray.distance);
 	if (b_pix > HEIGHT)
 		b_pix = HEIGHT;
 	if (t_pix < 0)
 		t_pix = 0;
 	gm->ray.info->index = ray;
-	if (gm->wall_img)
-		mlx_delete_image(gm->mlx_on, gm->wall_img);
 	draw_wall2(gm, t_pix, b_pix, wall_h);
 }
