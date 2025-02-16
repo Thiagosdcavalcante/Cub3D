@@ -21,10 +21,10 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define FOV 65
+# define FOV 60
 # define ROT_SPEED 0.040
-# define MAX_MAP_W 480
-# define MAX_MAP_H 270
+// # define MAX_MAP_W 480
+// # define MAX_MAP_H 270
 # define NORTH 1.5
 # define EAST 0
 # define SOUTH 0.5
