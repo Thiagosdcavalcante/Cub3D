@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/14 11:03:41 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:23:24 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 		y += factor;
 	}
 	mlx_image_to_window(gm->mlx_on, gm->wall_img, 0, 0);
-	gm->bg_img->instances[1].z = true;
 }
 
 void	render_wall(t_game *gm, int ray)
