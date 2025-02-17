@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/16 20:19:19 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:02:29 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,10 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 		y = 0;
 	while (t_pix < b_pix)
 	{
-		put_pixel(gm->wall_img, gm->ray.info->index, t_pix++,
+		put_pixel(gm->wall_img, gm->ray.info->index, t_pix,
 			reverse_bytes(arr[(uint32_t)y * texture->width + (uint32_t)x]));
 		y += factor;
+		t_pix++;
 	}
 	mlx_image_to_window(gm->mlx_on, gm->wall_img, 0, 0);
 }
