@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:58:16 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/13 13:08:20 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:59:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ void    game_loop2(void *game)
 	t_game	*gm;
 
 	gm = (t_game *)game;
-	if (gm->game)
-		mlx_delete_image(gm->mlx_on, gm->game);
-	gm->game = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
-//	hook(gm, 0, 0);
+	if (gm->wall_img)
+		mlx_delete_image(gm->mlx_on, gm->wall_img);
+	gm->wall_img = mlx_new_image(gm->mlx_on, WIDTH, HEIGHT);
 	cast_rays(gm);
 //	raycast(gm);
-	mlx_image_to_window(gm->mlx_on, gm->game, 0, 0);
+	mlx_image_to_window(gm->mlx_on, gm->wall_img, 0, 0);
 }
