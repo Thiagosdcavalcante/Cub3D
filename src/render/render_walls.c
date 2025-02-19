@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:15:05 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/17 16:02:29 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:07:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,11 @@ mlx_texture_t    *get_texture(t_game *gm)
 	gm->ray.ray_ngl = nor_angle(gm->ray.ray_ngl);
 	if (gm->ray.info->y)
 	{
-		if (v_unit_circle(gm->ray.ray_ngl))
+		if (unit_circle(gm->ray.ray_ngl, 'y'))
 			return (gm->texinfo->tex->west);
 		return (gm->texinfo->tex->east);
 	}
-	if (h_unit_circle(gm->ray.ray_ngl))
+	if (unit_circle(gm->ray.ray_ngl, 'x'))
 		return (gm->texinfo->tex->south);
 	return (gm->texinfo->tex->north);
 }
@@ -179,9 +179,9 @@ static double	get_x_o(mlx_texture_t *texture, t_game *gm)
 
 	width = (double) texture->width;
 	if (gm->ray.info->x)
-		x = fmodf((gm->ray.info->y * (width / gm->tile.base)), width);
-	else
 		x = fmodf((gm->ray.info->x * (width / gm->tile.base)), width);
+	else
+		x = fmodf((gm->ray.info->y * (width / gm->tile.base)), width);
 	if (texture == gm->texinfo->tex->south || texture == gm->texinfo->tex->west)
 		return (width - x);
 	return (x);
@@ -197,15 +197,15 @@ void	draw_wall2(t_game *gm, int t_pix, int b_pix, double wall_h)
 
 	texture = get_texture(gm);
 	arr = (uint32_t *)texture->pixels;
-	factor = (double) (texture->height / wall_h);
+	factor = (double)(texture->height) / wall_h;
 	x = get_x_o(texture, gm);
-	y = (t_pix - ((double) HEIGHT / 2) + (wall_h / 2)) * factor;
+	y = (t_pix - ((double)HEIGHT / 2) + (wall_h / 2)) * factor;
 	if (y < 0)
 		y = 0;
 	while (t_pix < b_pix)
 	{
 		put_pixel(gm->wall_img, gm->ray.info->index, t_pix,
-			reverse_bytes(arr[(uint32_t)y * texture->width + (uint32_t)x]));
+			reverse_bytes(arr[(int)y * texture->width + (int)x]));
 		y += factor;
 		t_pix++;
 	}
