@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/19 15:30:52 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:58:37 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,18 @@ int	inter_check(float angle, float *inter, float *step, t_game *gm)	// check the
 
 int	wall_hit(float x, float y, t_game *gm)	// check the wall hit
 {
-	int		x_m;
-	int		y_m;
 	t_map	*map;
 
 	if (x < 0 || y < 0)
 		return (0);
 	map = gm->map_position;
-	x_m = floor(x / gm->tile.base); // get the x position in the map
-	y_m = floor(y / gm->tile.base); // get the y position in the map
-	if (y_m > gm->tile.height || x_m > gm->tile.width)
+	x = (int)floor(x / gm->tile.base); // get the x position in the map
+	y = (int)floor(y / gm->tile.base); // get the y position in the map
+	if (y > gm->tile.height || x > gm->tile.width)
 		return (0);
-	while (map && map->down && map->line != y_m)
+	while (map && map->down && map->line != y)
 		map = map->down;
-	while (map && map->nxt && map->column != x_m)
+	while (map && map->nxt && map->column != x)
 		map = map->nxt;
 	if (map->content == '1')
 		return (0);
@@ -82,16 +80,19 @@ float	get_h_inter(t_game *gm, float angl)
 
 	y_step = gm->tile.base;
 	x_step = gm->tile.base / tan(angl);
-	h_y = floorf(gm->cam->plr_y / gm->tile.base) * gm->tile.base;
+	h_y = floorf((double)(gm->cam->plr_y / gm->tile.base)) * gm->tile.base;
+	gm->is_horizon = unit_circle(angl, 'x');
 	pixel = inter_check(angl, &h_y, &y_step, gm);
 	h_x = gm->cam->plr_x + (h_y - gm->cam->plr_y) / tan(angl);
-	if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0))
-		x_step *= -1;
+	if ((x_step > 0) == unit_circle(angl, 'y'))
+		x_step = -x_step;
 	while (wall_hit(h_x, h_y - pixel, gm) == 1) // check the wall hit whit the pixel value
 	{
 		h_x += x_step;
 		h_y += y_step;
 	}
+	gm->ray.info->x = h_x;
+	gm->ray.info->y = 0;
 	return (pytheorem(pow(h_x - gm->cam->plr_x, 2), pow(h_y - gm->cam->plr_y, 2))); // get the distance
 }
 
