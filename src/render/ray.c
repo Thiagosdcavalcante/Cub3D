@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:17:12 by tsantana          #+#    #+#             */
-/*   Updated: 2025/02/19 15:26:16 by tsantana         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:30:52 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ float	get_v_inter(t_game *gm, float angl)	// get the vertical intersection
 	while (wall_hit(v_x - pixel, v_y, gm) == 1) // check the wall hit whit the pixel value
 	{
 		v_x += x_step;
-		v_y += y_step;unit_circle
+		v_y += y_step;
 	}
 	gm->ray.info->x = 0;
 	gm->ray.info->y = v_y;
-	return (sqrt(pow(v_x - gm->cam->plr_x, 2) + pow(v_y - gm->cam->plr_y, 2))); // get the distance
+	return (sqrt(pow(v_x - gm->cam->plr_x, 2) + pow(v_y - gm->cam->plr_y, 2)));
 }
 
 void	cast_rays(t_game *gm)
